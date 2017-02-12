@@ -288,7 +288,7 @@ $ <span class="kw">echo</span> <span class="ot">${#primes[@]}</span>
 <div class="sourceCode"><pre class="sourceCode apache"><code class="sourceCode apache">(gdb) tui enable
 (gdb) break main
 (gdb) run &lt;&lt;&lt;&quot;9&quot;</code></pre></div>
-<p><em>NOTE:</em> the <code>&lt;&lt;&lt;&quot;9&quot;</code> gives your program the string <code>&quot;9&quot;</code> as <code>stdin</code>, as if you had typed it. Remember to change it to whatever inputs fail for you. You can test more numbers by adding them to that string, or storing them in a file and using <code>run &lt; filewithnumbers</code> instead.</p>
+<p><em>NOTE:</em> the <code>&lt;&lt;&lt;&quot;9&quot;</code> gives your program the string <code>&quot;9&quot;</code> as <code>stdin</code>, as if you had typed it. Remember to change it to whatever inputs fail for you. You can test more numbers by adding them to that string (e.g., <code>&lt;&lt;&lt;&quot;9 16 25&quot;</code>), or storing them in a file and using <code>run &lt; filewithnumbers</code> instead.</p>
 <p>You should now have your code at the top of the window, stopped at the first line of <code>main()</code>. Now let’s set <code>gdb</code> to print some of your interesting variables each time the program is paused (see <a href="https://sourceware.org/gdb/onlinedocs/gdb/Auto-Display.html">automatic display</a> in the <code>gdb</code> documentation).</p>
 <div class="sourceCode"><pre class="sourceCode apache"><code class="sourceCode apache">(gdb) display n
 (gdb) display k</code></pre></div>
