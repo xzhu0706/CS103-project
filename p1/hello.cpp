@@ -7,7 +7,26 @@
  * NOT mean it is okay to COPY THAT SOURCE.  What you submit here **MUST BE
  * YOUR OWN WORK**.
  * References:
- *
+ * http://stackoverflow.com/questions/5739937/using-getlinecin-s-after-cin
  */
 
+#include <iostream>
+using std::cin;
+using std::cout;
+#include <string>
+using std::string;
 
+int main()
+{
+	cout << "Enter your name:" << "\n";
+	string name;
+	getline(cin, name);
+
+	cout << "Enter a relative:" << "\n";
+	string relative;
+	getline(cin, relative);
+
+	cout << "Hello. My name is " << name << ". You killed my " << relative << ". Prepare to die. " << "\n";
+
+	return 0;
+}

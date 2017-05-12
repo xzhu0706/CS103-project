@@ -18,9 +18,14 @@
 using std::cin;
 using std::cout;
 using std::endl;
+#include <set>
+#include <vector>
+#include <algorithm>
+using namespace std;
 #include <getopt.h> // to parse long arguments.
 #include <cstdlib> // for atoi function
 
+void hanoi(int n, int start, int end);
 /* Here's a skeleton main function for processing the arguments. */
 int main(int argc, char *argv[]) {
 	// define long options
@@ -54,6 +59,16 @@ int main(int argc, char *argv[]) {
 
 	/* TODO: now that you have the options and arguments,
 	 * solve the puzzle. */
-
+	hanoi(n,start,end);
 	return 0;
+}
+void hanoi(int n, int start, int end) {
+	if (n==1) {
+		cout<<start<<"\t"<<end<<endl;
+		return;
+	}
+	int other = 6 - start - end;
+	hanoi(n-1,start,other);
+	cout<<start<<"\t"<<end<<endl;
+	hanoi(n-1,other,end);
 }

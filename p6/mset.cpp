@@ -72,6 +72,7 @@ void mandelbrotArea::mouseDoubleClickEvent(QMouseEvent *event)
 	// the mouse button from event->button() and check for 
 	// event->button() == Qt::LeftButton, etc. to figure out what
 	// button is being pressed.
+	
 }
 
 void mandelbrotArea::mousePressEvent(QMouseEvent *event)

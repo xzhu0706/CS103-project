@@ -5,7 +5,7 @@
  */
 
 #include "complex.h"
-
+using namespace std;
 #include <cmath> // for the square root function needed for norm()
 
 complex::complex(double re, double im)
@@ -47,7 +47,7 @@ complex complex::conj()
 	/* NOTE: alternatively, you could use a constructor to make a
 	 * new complex number with the right real and imaginary parts,
 	 * and return it straight away: */
-	// return complex(real,-imag);
+//	return complex(real,-imag);
 }
 
 complex::complex()
@@ -59,7 +59,8 @@ complex::complex()
 double complex::norm()
 {
 	/* TODO: write this */
-	return 0;
+	double temp = sqrt(real*real+imag*imag);
+	return temp;
 }
 
 complex operator+(const complex& w, const complex& z)
@@ -74,25 +75,30 @@ complex operator+(const complex& w, const complex& z)
 
 complex operator-(const complex& w)
 {
-	/* TODO: write this */
+	/* DONE TODO: write this */
 	/* NOTE: this is unary negation, not subtraction. */
+	return complex(-w.real,-w.imag);
 }
 
 complex operator-(const complex& w, const complex& z)
 {
-	/* TODO: write this */
+	/* DONE TODO: write this */
+	return complex(w.real-z.real,w.imag-z.imag);
 }
 
 complex operator*(const complex& w, const complex& z)
 {
-	/* TODO: write this */
-	return complex();
+	/* DONE TODO: write this */
+	return complex(w.real*z.real-w.imag*z.imag,w.real*z.imag+w.imag*z.real);
 }
 
 complex operator/(complex& w, complex& z)
 {
-	/* TODO: write this */
-	return complex();
+	/* DONE TODO: write this */
+	complex retVal;
+	retVal.real = (w.real*z.real + w.imag*z.imag) / (z.real*z.real + z.imag*z.imag);
+	retVal.imag = (w.imag*z.real - w.real*z.imag) / (z.real*z.real + z.imag*z.imag);
+	return retVal;
 }
 
 complex operator^(const complex& w, int a)
