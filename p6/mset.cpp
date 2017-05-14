@@ -68,11 +68,25 @@ void mandelbrotArea::refreshImage()
 
 void mandelbrotArea::mouseDoubleClickEvent(QMouseEvent *event)
 {
-	// TODO: write the code for the zoom operation.  You can get
+	// DONE TODO: write the code for the zoom operation.  You can get
 	// the mouse button from event->button() and check for 
 	// event->button() == Qt::LeftButton, etc. to figure out what
 	// button is being pressed.
-	
+	unsigned long iwidth = image.width();
+	unsigned long iheight = image.height();
+	double x = event->pos().x();
+	double y = event->pos().y();
+	complex center (llCoord.real+x*windowWidth/iwidth,llCoord.imag+y*windowWidth/iheight);
+	if (event->button() == Qt::LeftButton) {
+		maxIterations += 50;
+		windowWidth /= 2;
+	} else {
+		maxIterations -= 50;
+		windowWidth *= 2;
+	}
+	llCoord.real = center.real - windowWidth/2;
+	llCoord.imag = center.imag - windowWidth/2;
+	render();
 }
 
 void mandelbrotArea::mousePressEvent(QMouseEvent *event)
@@ -98,7 +112,7 @@ void mandelbrotArea::mouseReleaseEvent(QMouseEvent *event)
 void mandelbrotArea::paintEvent(QPaintEvent *event)
 {
 	// check: if blank, render first.
-	if (!drawnYet) {
+	if (!drawnYet) { 
 		drawnYet = true;
 		this->render();
 	}
@@ -118,7 +132,7 @@ void mandelbrotArea::resizeEvent(QResizeEvent *event)
 
 void mandelbrotArea::render()
 {
-	// TODO: write this function.
+	// DONE TODO: write this function.
 	// draw the portion of the mandelbrot set that lies in our window.
 	// idea: loop through all the pixels, iterate the function figure out how
 	// quickly the point is diverging, and color it based on the result
@@ -132,12 +146,21 @@ void mandelbrotArea::render()
 	// get the dimensions of our image in terms of pixels:
 	unsigned long iwidth = image.width();
 	unsigned long iheight = image.height();
-	double unit = 1.0 / iwidth; // on a scale of 0-1, how wide is a pixel?
+	double unit = 1.0 / (iwidth+iheight); 
 	for (unsigned long i = 0; i < iwidth; i++) {
-		qc.setRgbF(i*unit,sqrt(i*unit),i*unit); // set the color we want to draw.
-		qpen.setColor(qc); // apply the color to the pen
-		qp.setPen(qpen);   // set the painter to use that pen
-		qp.drawLine(i,0,i,iheight); // draw a line of the specified color.
+		for (unsigned long j = 0; j < iheight; j++) {
+			complex c(llCoord.real+i*windowWidth/iwidth,llCoord.imag+j*windowWidth/iheight);
+			complex z(0,0);
+			unsigned long iterations = 0;
+			while (iterations<maxIterations && z.norm()<2.0) {
+				z = (z^2) + c;
+				iterations++;
+			}
+			qc.setRgbF(iterations*unit*0.2,sqrt(iterations*unit)*0.8,iterations*unit*0.3);
+			qpen.setColor(qc); // apply the color to the pen
+			qp.setPen(qpen);   // set the painter to use that pen
+			qp.drawPoint(i,j);
+		}
 	}
 	update(); // repaint screen contents
 	return;

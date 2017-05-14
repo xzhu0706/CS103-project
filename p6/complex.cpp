@@ -58,7 +58,7 @@ complex::complex()
 
 double complex::norm()
 {
-	/* TODO: write this */
+	/* DONE TODO: write this */
 	double temp = sqrt(real*real+imag*imag);
 	return temp;
 }
