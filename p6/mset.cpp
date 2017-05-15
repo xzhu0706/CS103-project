@@ -76,7 +76,7 @@ void mandelbrotArea::mouseDoubleClickEvent(QMouseEvent *event)
 	unsigned long iheight = image.height();
 	double x = event->pos().x();
 	double y = event->pos().y();
-	complex center (llCoord.real+x*windowWidth/iwidth,llCoord.imag+y*windowWidth/iheight);
+	complex center (llCoord.real+x*windowWidth/iwidth,windowWidth+llCoord.imag-y*windowWidth/iheight);
 	if (event->button() == Qt::LeftButton) {
 		maxIterations += 50;
 		windowWidth /= 2;
@@ -149,7 +149,7 @@ void mandelbrotArea::render()
 	double unit = 1.0 / (iwidth+iheight); 
 	for (unsigned long i = 0; i < iwidth; i++) {
 		for (unsigned long j = 0; j < iheight; j++) {
-			complex c(llCoord.real+i*windowWidth/iwidth,llCoord.imag+j*windowWidth/iheight);
+			complex c(llCoord.real+i*windowWidth/iwidth,windowWidth+llCoord.imag-j*windowWidth/iheight);
 			complex z(0,0);
 			unsigned long iterations = 0;
 			while (iterations<maxIterations && z.norm()<2.0) {
